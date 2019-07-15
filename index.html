@@ -174,16 +174,6 @@
 	}
 	function addPipes(){
 		// 随机向地图添加标注
-		for (var i = 0; i < 5; i ++) {
-			for (var j = 0; j < 7; j ++) {
-				var point = points[j];
-				var rad = rads[j] / 56572.0;
-				var pointR = new BMap.Point(point.lng + rad * (Math.random() * 0.8) + rad * (Math.random() * 0.3), point.lat - rad * (Math.random() * 0.3) - rad * (Math.random() * 0.9));
-				var idx = parseInt(Math.random() * 4);
-				var markerR = new BMap.Marker(pointR,{icon:drop_icons[idx]});
-				map.addOverlay(markerR);
-			}
-		}
 		pipe_points.forEach(function (point) {
 			var idx = parseInt(Math.random() * 4);
 			var markerR = new BMap.Marker(point,{icon:pipe_icons[idx]});
