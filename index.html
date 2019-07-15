@@ -25,10 +25,9 @@
 		<div id="r-result">
 			<input type="button" onclick="showOver()" value="显示" />
 			<input type="button" onclick="hideOver()" value="隐藏" />
-			<input type="button" onclick="addBluePoints()" value="添加蓝点" />
-			<input type="button" onclick="addPoints()" value="添加点" />
-			<input type="button" onclick="addYellowPoints()" value="添加黄点" />
-			<input type="button" onclick="addGreyPoints()" value="添加灰点" />
+			<input type="button" onclick="addDrops()" value="添加点" />
+			<input type="button" onclick="addPipes()" value="添加管道" />
+			<input type="button" onclick="addBoxes()" value="添加河面" />
 			<input type="button" onclick="addLines()" value="添加线" />
 			<input type="button" onclick="addCircles()" value="添加面" />
 		</div>
@@ -43,16 +42,39 @@
 	map.centerAndZoom(point, 16);
 
 	var drop_icons = [];
-	drop_icons.push(new BMap.Icon("images/blue-drop.png", new BMap.Size(150,150)));
-	drop_icons.push(new BMap.Icon("images/red-drop.png", new BMap.Size(150,150)));
-	drop_icons.push(new BMap.Icon("images/yellow-drop.png", new BMap.Size(150,150)));
-	drop_icons.push(new BMap.Icon("images/grey-drop.png", new BMap.Size(150,150)));
+	drop_icons.push(new BMap.Icon("images/drop_green.png", new BMap.Size(40,40)
+		,{
+			offset: new BMap.Size(0, 0), // 指定定位位置
+			imageOffset: new BMap.Size(20, 0) // 设置图片偏移
+		}
+	));
+	drop_icons.push(new BMap.Icon("images/drop_red.png", new BMap.Size(40,40)	,{
+			offset: new BMap.Size(0, 0), // 指定定位位置
+			imageOffset: new BMap.Size(20, 0) // 设置图片偏移
+		}
+	));
+	drop_icons.push(new BMap.Icon("images/drop_orange.png", new BMap.Size(40,40)	,{
+			offset: new BMap.Size(0, 0), // 指定定位位置
+			imageOffset: new BMap.Size(20, 0) // 设置图片偏移
+		}
+	));
+	drop_icons.push(new BMap.Icon("images/drop_grey.png", new BMap.Size(40,40)	,{
+			offset: new BMap.Size(0, 0), // 指定定位位置
+			imageOffset: new BMap.Size(20, 0) // 设置图片偏移
+		}
+	));
 
-	var point_icons = [];
-	point_icons.push(new BMap.Icon("images/blue-point.png", new BMap.Size(200,200)));
-	point_icons.push(new BMap.Icon("images/red-point.png", new BMap.Size(200,200)));
-	point_icons.push(new BMap.Icon("images/yellow-point.png", new BMap.Size(200,200)));
-	point_icons.push(new BMap.Icon("images/grey-point.png", new BMap.Size(200,200)));
+	var pipe_icons = [];
+	pipe_icons.push(new BMap.Icon("images/pipe_green.png", new BMap.Size(20,20)));
+	pipe_icons.push(new BMap.Icon("images/pipe_red.png", new BMap.Size(20,20)));
+	pipe_icons.push(new BMap.Icon("images/pipe_orange.png", new BMap.Size(20,20)));
+	pipe_icons.push(new BMap.Icon("images/pipe_grey.png", new BMap.Size(20,20)));
+
+	var box_icons = [];
+	box_icons.push(new BMap.Icon("images/box_green.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/box_red.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/box_orange.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/box_grey.png", new BMap.Size(20,20)));
 
 	var circles = [];
 	var p1 = new BMap.Point(114.0469272065,22.5191553878);
@@ -70,31 +92,25 @@
 		circles.push(c);
 	}
 
-	// var box_icons = [];
-	// box_icons.push(new BMap.Icon("images/blue-box.png", new BMap.Size(250,250)));
-	// box_icons.push(new BMap.Icon("images/red-box.png", new BMap.Size(250,250)));
-	// box_icons.push(new BMap.Icon("images/yellow-box.png", new BMap.Size(250,250)));
-	// box_icons.push(new BMap.Icon("images/grey-box.png", new BMap.Size(250,250)));
+	var pipe_points = [
+		new BMap.Point(114.0488154816,22.5155873085),
+		new BMap.Point(114.0512831139,22.5196311248),
+		new BMap.Point(114.0536540720,22.5234506741),
+		new BMap.Point(114.0488154816,22.5155873085),
+		new BMap.Point(114.0523022386,22.5213693725),
+		new BMap.Point(114.0536540720,22.5234506741),
+		new BMap.Point(114.0559715006,22.5276131832)
+	];
 
-	// var marker1 = new BMap.Marker(point1);  // 创建标注
-	// var marker2 = new BMap.Marker(point2);  // 创建标注
-	// var marker3 = new BMap.Marker(point3);  // 创建标注
-	// var marker4 = new BMap.Marker(point4);  // 创建标注
-	// var marker5 = new BMap.Marker(point5);  // 创建标注
-	// map.addOverlay(marker1);              // 将标注添加到地图中
-	// map.addOverlay(marker2);              // 将标注添加到地图中
-	// map.addOverlay(marker3);              // 将标注添加到地图中
-	// map.addOverlay(marker4);              // 将标注添加到地图中
-	// map.addOverlay(marker5);              // 将标注添加到地图中
-
-	var polyline = new BMap.Polyline([
+	var box_points = [
 		new BMap.Point(114.0456492019, 22.5101174748),
 		new BMap.Point(114.0504033494, 22.5176488767),
 		new BMap.Point(114.0512616563, 22.5190760982),
 		new BMap.Point(114.0518123050, 22.5204743795),
 		new BMap.Point(114.0550702783, 22.5255914087),
-		new BMap.Point(114.0559715006,22.5276131832)
-	], {strokeColor:"blue", strokeWeight:15, strokeOpacity:0});
+		new BMap.Point(114.0559715006,22.5276131832)];
+
+	var polyline = new BMap.Polyline(box_points, {strokeColor:"blue", strokeWeight:15, strokeOpacity:0});
 
 	var pl1 = new BMap.Polyline([
 		p1,
@@ -139,23 +155,24 @@
 	function hideOver(){
 		map.clearOverlays();
 	}
-	function addBluePoints(){
-		var myIcon = new BMap.Icon("images/blue-drop.png", new BMap.Size(150,150));
-		addPoints(myIcon);
+	function addDrops(){
+		// 随机向地图添加标注
+		for (var i = 0; i < 3; i ++) {
+			for (var j = 0; j < 7; j ++) {
+				var point = points[j];
+				var rad = rads[j] / 56572.0;
+				var pointR = new BMap.Point(point.lng + rad * (Math.random() * 0.8) - rad * (Math.random() * 0.8), point.lat + rad * (Math.random() * 0.8) - rad * (Math.random() * 0.8));
+				var idx = parseInt(Math.random() * 4);
+				var markerR = new BMap.Marker(pointR,{icon:drop_icons[idx]});
+				map.addOverlay(markerR);
+			}
+		}
+		points.forEach(function (point) {
+			var markerR = new BMap.Marker(point);
+			map.addOverlay(markerR);
+		})
 	}
-	function addRedPoints(){
-		var myIcon = new BMap.Icon("images/red-drop.png", new BMap.Size(150,150));
-		addPoints(myIcon);
-	}
-	function addYellowPoints(){
-		var myIcon = new BMap.Icon("images/yellow-drop.png", new BMap.Size(150,150));
-		addPoints(myIcon);
-	}
-	function addGreyPoints(){
-		var myIcon = new BMap.Icon("images/grey-drop.png", new BMap.Size(150,150));
-		addPoints(myIcon);
-	}
-	function addPoints(myIcon){
+	function addPipes(){
 		// 随机向地图添加标注
 		for (var i = 0; i < 5; i ++) {
 			for (var j = 0; j < 7; j ++) {
@@ -167,8 +184,17 @@
 				map.addOverlay(markerR);
 			}
 		}
-		points.forEach(function (point) {
-			var markerR = new BMap.Marker(point);
+		pipe_points.forEach(function (point) {
+			var idx = parseInt(Math.random() * 4);
+			var markerR = new BMap.Marker(point,{icon:pipe_icons[idx]});
+			map.addOverlay(markerR);
+		})
+	}
+	function addBoxes(){
+		// 随机向地图添加标注
+		box_points.forEach(function (point) {
+			var idx = parseInt(Math.random() * 4);
+			var markerR = new BMap.Marker(point,{icon:box_icons[idx]});
 			map.addOverlay(markerR);
 		})
 	}
