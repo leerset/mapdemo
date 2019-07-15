@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html,#allmap {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#l-map{height:80%;width:100%;}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=6YEOGgEs5NGQHvg36wFHyMsj5E07xnTU"></script>
+	<title>DEMO</title>
+</head>
+<body>
+	<div style="width:94%;height:94%;margin:2%;padding:1%;border-color:black;border-width:1px;border-style:solid;">
+		<div id="title" style="height:10%;">
+			<img class="img" style="height:100%;float:left;" src="images/logo.png"></img>
+			<div id="text" class="text" style="height:60px;font-size:30px;float:left;margin:15px;">
+				<span>流域水环境精细化管理决策支持系统</sapn>
+			</div>
+		</div>
+		<div>
+			<hr style="width:100%;height:1px;border:none;border-top:1px double black;" />
+		</div>
+		<div id="l-map"></div>
+		<div id="r-result">
+			<input type="button" onclick="showOver()" value="显示" />
+			<input type="button" onclick="hideOver()" value="隐藏" />
+			<input type="button" onclick="addBluePoints()" value="添加蓝点" />
+			<input type="button" onclick="addPoints()" value="添加点" />
+			<input type="button" onclick="addYellowPoints()" value="添加黄点" />
+			<input type="button" onclick="addGreyPoints()" value="添加灰点" />
+			<input type="button" onclick="addLines()" value="添加线" />
+			<input type="button" onclick="addCircles()" value="添加面" />
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("l-map");
+	// map.setMapStyle({style: 'light'});
+	var point = new BMap.Point(114.0515977283,22.5199590014);
+	map.centerAndZoom(point, 16);
+
+	var drop_icons = [];
+	drop_icons.push(new BMap.Icon("images/blue-drop.png", new BMap.Size(150,150)));
+	drop_icons.push(new BMap.Icon("images/red-drop.png", new BMap.Size(150,150)));
+	drop_icons.push(new BMap.Icon("images/yellow-drop.png", new BMap.Size(150,150)));
+	drop_icons.push(new BMap.Icon("images/grey-drop.png", new BMap.Size(150,150)));
+
+	var point_icons = [];
+	point_icons.push(new BMap.Icon("images/blue-point.png", new BMap.Size(200,200)));
+	point_icons.push(new BMap.Icon("images/red-point.png", new BMap.Size(200,200)));
+	point_icons.push(new BMap.Icon("images/yellow-point.png", new BMap.Size(200,200)));
+	point_icons.push(new BMap.Icon("images/grey-point.png", new BMap.Size(200,200)));
+
+	var circles = [];
+	var p1 = new BMap.Point(114.0469272065,22.5191553878);
+	var p2 = new BMap.Point(114.0478677201,22.5232816411);
+	var p3 = new BMap.Point(114.0498632836,22.5280784373);
+	var p4 = new BMap.Point(114.0531855960,22.5154790956);
+	var p5 = new BMap.Point(114.0566152307,22.5219838553);
+	var p6 = new BMap.Point(114.0584820482,22.5259085518);
+	var p7 = new BMap.Point(114.0564006540,22.5286240594);
+
+	var points = [p1,p2,p3,p4,p5,p6,p7];
+	var rads = [95,205,275,165,205,235,95];
+	for(i=0;i<7;i++){
+		var c = new BMap.Circle(points[i], rads[i], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0});
+		circles.push(c);
+	}
+
+	// var box_icons = [];
+	// box_icons.push(new BMap.Icon("images/blue-box.png", new BMap.Size(250,250)));
+	// box_icons.push(new BMap.Icon("images/red-box.png", new BMap.Size(250,250)));
+	// box_icons.push(new BMap.Icon("images/yellow-box.png", new BMap.Size(250,250)));
+	// box_icons.push(new BMap.Icon("images/grey-box.png", new BMap.Size(250,250)));
+
+	// var marker1 = new BMap.Marker(point1);  // 创建标注
+	// var marker2 = new BMap.Marker(point2);  // 创建标注
+	// var marker3 = new BMap.Marker(point3);  // 创建标注
+	// var marker4 = new BMap.Marker(point4);  // 创建标注
+	// var marker5 = new BMap.Marker(point5);  // 创建标注
+	// map.addOverlay(marker1);              // 将标注添加到地图中
+	// map.addOverlay(marker2);              // 将标注添加到地图中
+	// map.addOverlay(marker3);              // 将标注添加到地图中
+	// map.addOverlay(marker4);              // 将标注添加到地图中
+	// map.addOverlay(marker5);              // 将标注添加到地图中
+
+	var polyline = new BMap.Polyline([
+		new BMap.Point(114.0456492019, 22.5101174748),
+		new BMap.Point(114.0504033494, 22.5176488767),
+		new BMap.Point(114.0512616563, 22.5190760982),
+		new BMap.Point(114.0518123050, 22.5204743795),
+		new BMap.Point(114.0550702783, 22.5255914087),
+		new BMap.Point(114.0559715006,22.5276131832)
+	], {strokeColor:"blue", strokeWeight:15, strokeOpacity:0});
+
+	var pl1 = new BMap.Polyline([
+		p1,
+		new BMap.Point(114.0488154816,22.5155873085)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl2 = new BMap.Polyline([
+		p2,
+		new BMap.Point(114.0512831139,22.5196311248)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl3 = new BMap.Polyline([
+		p3,
+		new BMap.Point(114.0536540720,22.5234506741)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl4 = new BMap.Polyline([
+		p4,
+		new BMap.Point(114.0488154816,22.5155873085)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl5 = new BMap.Polyline([
+		p5,
+		new BMap.Point(114.0523022386,22.5213693725)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl6 = new BMap.Polyline([
+		p6,
+		new BMap.Point(114.0536540720,22.5234506741)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	var pl7 = new BMap.Polyline([
+		p7,
+		new BMap.Point(114.0559715006,22.5276131832)
+	], {strokeColor:"blue", strokeWeight:5, strokeOpacity:0});
+
+	hideOver();
+
+	function showOver(){
+		marker1.show(); polyline.show(); circle1.show();circle2.show();circle3.show();
+	}
+	function hideOver(){
+		map.clearOverlays();
+	}
+	function addBluePoints(){
+		var myIcon = new BMap.Icon("images/blue-drop.png", new BMap.Size(150,150));
+		addPoints(myIcon);
+	}
+	function addRedPoints(){
+		var myIcon = new BMap.Icon("images/red-drop.png", new BMap.Size(150,150));
+		addPoints(myIcon);
+	}
+	function addYellowPoints(){
+		var myIcon = new BMap.Icon("images/yellow-drop.png", new BMap.Size(150,150));
+		addPoints(myIcon);
+	}
+	function addGreyPoints(){
+		var myIcon = new BMap.Icon("images/grey-drop.png", new BMap.Size(150,150));
+		addPoints(myIcon);
+	}
+	function addPoints(myIcon){
+		// 随机向地图添加标注
+		for (var i = 0; i < 5; i ++) {
+			for (var j = 0; j < 7; j ++) {
+				var point = points[j];
+				var rad = rads[j] / 56572.0;
+				var pointR = new BMap.Point(point.lng + rad * (Math.random() * 0.8) + rad * (Math.random() * 0.3), point.lat - rad * (Math.random() * 0.3) - rad * (Math.random() * 0.9));
+				var idx = parseInt(Math.random() * 4);
+				var markerR = new BMap.Marker(pointR,{icon:drop_icons[idx]});
+				map.addOverlay(markerR);
+			}
+		}
+		points.forEach(function (point) {
+			var markerR = new BMap.Marker(point);
+			map.addOverlay(markerR);
+		})
+	}
+	// function addLines(){
+	// 	// 随机向地图添加25个标注
+	// 	var bounds = map.getBounds();
+	// 	var sw = bounds.getSouthWest();
+	// 	var ne = bounds.getNorthEast();
+	// 	var lngSpan = Math.abs(sw.lng - ne.lng);
+	// 	var latSpan = Math.abs(ne.lat - sw.lat);
+	// 	var points = [];
+	// 	for (var i = 0; i < 5; i ++) {
+	// 		var pointR = new BMap.Point(sw.lng + lngSpan * 0.3 + lngSpan * (Math.random() * 0.4), ne.lat - latSpan * 0.3 - latSpan * (Math.random() * 0.4));
+	// 		points.push(pointR);
+	// 	}
+	// 	var polyline = new BMap.Polyline(points, {strokeColor:"green", strokeWeight:10, strokeOpacity:0});
+	// 	map.addOverlay(polyline);
+	// }
+	function addLines(){
+		map.addOverlay(polyline);
+		map.addOverlay(pl1);
+		map.addOverlay(pl2);
+		map.addOverlay(pl3);
+		map.addOverlay(pl4);
+		map.addOverlay(pl5);
+		map.addOverlay(pl6);
+		map.addOverlay(pl7);
+	}
+
+
+	function addCircles(){
+		circles.forEach(function (c) {
+			map.addOverlay(c);
+		});
+	}
+
+</script>
