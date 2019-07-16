@@ -13,7 +13,7 @@
 <body>
 	<div style="width:94%;height:94%;margin:2%;padding:1%;border-color:black;border-width:1px;border-style:solid;">
 		<div id="title" style="height:10%;">
-			<img class="img" style="height:100%;float:left;" src="images/logo.png"></img>
+			<img class="img" style="height:100%;float:left;" src="images/pipe_green.png"></img>
 			<div id="text" class="text" style="height:60px;font-size:30px;float:left;margin:15px;">
 				<span>流域水环境精细化管理决策支持系统</sapn>
 			</div>
@@ -30,6 +30,9 @@
 			<input type="button" onclick="addBoxes()" value="添加河面" />
 			<input type="button" onclick="addLines()" value="添加线" />
 			<input type="button" onclick="addCircles()" value="添加面" />
+			<input type="button" onclick="addFlow()" value="添加流水" />
+
+
 		</div>
 	</div>
 </body>
@@ -88,9 +91,15 @@
 	var points = [p1,p2,p3,p4,p5,p6,p7];
 	var rads = [95,205,275,165,205,235,95];
 	for(i=0;i<7;i++){
-		var c = new BMap.Circle(points[i], rads[i], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0});
+		var c = new BMap.Circle(points[i], rads[i], {strokeColor:"blue", strokeWeight:0, strokeOpacity:0,fillOpacity: 0.8, fillColor: "#FFFFFF"});
 		circles.push(c);
 	}
+		// tileLayer.getTilesUrl = function(tileCoord, zoom) {
+		// 	var x = tileCoord.x;
+		// 	var y = tileCoord.y;
+		// 	var url = '/Users/leerset/projects/mapdemo/images/drop_grey.png';     //根据当前坐标，选取合适的瓦片图
+		// 	return url;
+		// }
 
 	var pipe_points = [
 		new BMap.Point(114.0488154816,22.5155873085),
@@ -219,6 +228,184 @@
 		circles.forEach(function (c) {
 			map.addOverlay(c);
 		});
+	}
+
+	function addFlow() {
+		addPolylines();
+		adynamicLines();
+	}
+
+	var polylines = [];
+	var linePoints = [
+		new BMap.Point(114.045463,22.510211),
+		new BMap.Point(114.045714,22.510645),
+		new BMap.Point(114.046109,22.511113),
+		new BMap.Point(114.046433,22.511547),
+		new BMap.Point(114.04672,22.512048),
+		new BMap.Point(114.046972,22.512415),
+		new BMap.Point(114.047187,22.512682),
+		new BMap.Point(114.047367,22.513016),
+		new BMap.Point(114.047942,22.513884),
+		new BMap.Point(114.048194,22.514318),
+		new BMap.Point(114.048481,22.514719),
+		new BMap.Point(114.048697,22.515019),
+		new BMap.Point(114.048876,22.515253),
+		new BMap.Point(114.048984,22.51552),
+		new BMap.Point(114.049236,22.515887),
+		new BMap.Point(114.049487,22.516188),
+		new BMap.Point(114.049667,22.516488),
+		new BMap.Point(114.04981,22.516722),
+		new BMap.Point(114.049918,22.517022),
+		new BMap.Point(114.050206,22.517323),
+		new BMap.Point(114.050349,22.517623),
+		new BMap.Point(114.050457,22.517824),
+		new BMap.Point(114.050745,22.518157),
+		new BMap.Point(114.050817,22.518458),
+		new BMap.Point(114.051104,22.518758),
+		new BMap.Point(114.051212,22.519092),
+		new BMap.Point(114.051427,22.51986),
+		new BMap.Point(114.051535,22.520261),
+		new BMap.Point(114.051715,22.520561),
+		new BMap.Point(114.051895,22.520862),
+		new BMap.Point(114.052038,22.521095),
+		new BMap.Point(114.052146,22.521296),
+		new BMap.Point(114.052398,22.521529),
+		new BMap.Point(114.052541,22.521796),
+		new BMap.Point(114.052649,22.522063),
+		new BMap.Point(114.052793,22.522264),
+		new BMap.Point(114.052972,22.522564),
+		new BMap.Point(114.053368,22.523165),
+		new BMap.Point(114.053691,22.523666),
+		new BMap.Point(114.053799,22.523866),
+		new BMap.Point(114.053979,22.524133),
+		new BMap.Point(114.05405,22.524267),
+		new BMap.Point(114.054086,22.524534),
+		new BMap.Point(114.054266,22.524768),
+		new BMap.Point(114.054482,22.524968),
+		new BMap.Point(114.054733,22.525335),
+		new BMap.Point(114.054805,22.525502),
+		new BMap.Point(114.054949,22.525769),
+		new BMap.Point(114.054985,22.525869),
+		new BMap.Point(114.054985,22.525869),
+		new BMap.Point(114.054985,22.525869)
+	];
+
+	var plOpts = [
+		{strokeColor:"#00f",strokeWeight:"5",strokeOpacity:"0.4"}
+	];
+
+	function addPolylines(){
+    for(var i = 0; i < linePoints.length - 2; i++){
+      var polyline = new BMap.Polyline([linePoints[i],linePoints[i+1]],plOpts[0]);
+			map.addOverlay(polyline);   //增加折线
+			// polyline.hide();
+      polylines.push(polyline);
+    }
+  }
+
+	//数据准备,
+	var apoints = [
+		new BMap.Point(114.045463,22.510211),
+		new BMap.Point(114.045714,22.510645),
+		new BMap.Point(114.046109,22.511113),
+		new BMap.Point(114.046433,22.511547),
+		new BMap.Point(114.04672,22.512048),
+		new BMap.Point(114.046972,22.512415),
+		new BMap.Point(114.047187,22.512682),
+		new BMap.Point(114.047367,22.513016),
+		new BMap.Point(114.047942,22.513884),
+		new BMap.Point(114.048194,22.514318),
+		new BMap.Point(114.048481,22.514719),
+		new BMap.Point(114.048697,22.515019),
+		new BMap.Point(114.048876,22.515253),
+		new BMap.Point(114.048984,22.51552),
+		new BMap.Point(114.049236,22.515887),
+		new BMap.Point(114.049487,22.516188),
+		new BMap.Point(114.049667,22.516488),
+		new BMap.Point(114.04981,22.516722),
+		new BMap.Point(114.049918,22.517022),
+		new BMap.Point(114.050206,22.517323),
+		new BMap.Point(114.050349,22.517623),
+		new BMap.Point(114.050457,22.517824),
+		new BMap.Point(114.050745,22.518157),
+		new BMap.Point(114.050817,22.518458),
+		new BMap.Point(114.051104,22.518758),
+		new BMap.Point(114.051212,22.519092),
+		new BMap.Point(114.051427,22.51986),
+		new BMap.Point(114.051535,22.520261),
+		new BMap.Point(114.051715,22.520561),
+		new BMap.Point(114.051895,22.520862),
+		new BMap.Point(114.052038,22.521095),
+		new BMap.Point(114.052146,22.521296),
+		new BMap.Point(114.052398,22.521529),
+		new BMap.Point(114.052541,22.521796),
+		new BMap.Point(114.052649,22.522063),
+		new BMap.Point(114.052793,22.522264),
+		new BMap.Point(114.052972,22.522564),
+		new BMap.Point(114.053368,22.523165),
+		new BMap.Point(114.053691,22.523666),
+		new BMap.Point(114.053799,22.523866),
+		new BMap.Point(114.053979,22.524133),
+		new BMap.Point(114.05405,22.524267),
+		new BMap.Point(114.054086,22.524534),
+		new BMap.Point(114.054266,22.524768),
+		new BMap.Point(114.054482,22.524968),
+		new BMap.Point(114.054733,22.525335),
+		new BMap.Point(114.054805,22.525502),
+		new BMap.Point(114.054949,22.525769),
+		new BMap.Point(114.054985,22.525869),
+		new BMap.Point(114.054985,22.525869),
+		new BMap.Point(114.054985,22.525869)
+	];//原始点信息数组
+	var points = [];//百度化坐标数组。用于更新显示范围。
+	var bPoints = [];//百度化坐标数组。用于更新显示范围。
+	//创建标注点并添加到地图中
+	function addMarker(points) {
+	    //循环建立标注点
+	    for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
+	        var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+	        var marker = new BMap.Marker(point); //将点转化成标注点
+	        map.addOverlay(marker);  //将标注点添加到地图上
+	        //添加监听事件
+	        (function() {
+	            var thePoint = points[i];
+	            marker.addEventListener("click",
+	                function() {
+	                showInfo(this,thePoint);
+	            });
+	         })();
+	    }
+	}
+
+	//添加线
+	function addLine(points){
+
+	    var linePoints = [],pointsLen = points.length,i,polyline;
+	    if(pointsLen == 0){
+	        return;
+	    }
+	    // 创建标注对象并添加到地图
+	    for(i = 0;i <pointsLen;i++){
+	        linePoints.push(new BMap.Point(points[i].lng,points[i].lat));
+	    }
+
+	    polyline = new BMap.Polyline(linePoints, {strokeColor:"blue", strokeWeight:5, strokeOpacity:1});   //创建折线
+	    map.addOverlay(polyline);   //增加折线
+	}
+
+	var offset = 2;
+
+	//随机生成新的点，加入到轨迹中。
+	function adynamicLines(){
+		for (var i = 0; i < polylines.length; i++) {
+			polylines[i].hide();
+		}
+		for (var i = 0; i < polylines.length / 3 - 1; i++) {
+			polylines[i * 3 + offset].show();
+		}
+		offset -= 1;
+		if (offset == -1) {offset = 2;}
+    setTimeout(adynamicLines, 500);
 	}
 
 </script>
