@@ -290,13 +290,21 @@
 		new BMap.Point(114.054985,22.525869)
 	];
 
-	var plOpts = [
-		{strokeColor:"#00f",strokeWeight:"5",strokeOpacity:"0.4"}
-	];
+
+
+
+
+
+
+
+	var plOpts = [];
+	for (var a=0; a < 51; a ++) {
+		plOpts.push({strokeColor:"#00f",strokeWeight:2 + (60 - a) / 5,strokeOpacity:"0.4"});
+	}
 
 	function addPolylines(){
     for(var i = 0; i < linePoints.length - 2; i++){
-      var polyline = new BMap.Polyline([linePoints[i],linePoints[i+1]],plOpts[0]);
+      var polyline = new BMap.Polyline([linePoints[i],linePoints[i+1]],plOpts[i]);
 			map.addOverlay(polyline);   //增加折线
 			// polyline.hide();
       polylines.push(polyline);
