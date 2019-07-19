@@ -5,18 +5,19 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<style type="text/css">
 		body, html,#allmap {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
-		#l-map{height:80%;width:100%;}
+		#l-map{height:85%;width:100%;}
 	</style>
 	<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=6YEOGgEs5NGQHvg36wFHyMsj5E07xnTU&s=1"></script>
 	<title>DEMO</title>
 </head>
 <body>
 	<div style="width:94%;height:94%;margin:2%;padding:1%;border-color:black;border-width:1px;border-style:solid;">
-		<div id="title" style="height:10%;">
+		<div id="title" style="height:8%;">
 			<img class="img" style="height:100%;float:left;" src="images/pipe_green.png"></img>
-			<div id="text" class="text" style="height:60px;font-size:30px;float:left;margin:15px;">
-				<span>流域水环境精细化管理决策支持系统</sapn>
-			</div>
+			<div id="text" class="text" style="height:40px;font-size:30px;float:left;margin:15px;">
+				<!-- <span>流域水环境精细化管理决策支持系统</sapn> -->
+					<span>流域水环境演示系统</sapn>
+					</div>
 		</div>
 		<div>
 			<hr style="width:100%;height:1px;border:none;border-top:1px double black;" />
@@ -70,15 +71,16 @@
 
 	var pipe_icons = [];
 	pipe_icons.push(new BMap.Icon("images/pipe_green.png", new BMap.Size(20,20)));
-	pipe_icons.push(new BMap.Icon("images/pipe_red.png", new BMap.Size(20,20)));
-	pipe_icons.push(new BMap.Icon("images/pipe_orange.png", new BMap.Size(20,20)));
 	pipe_icons.push(new BMap.Icon("images/pipe_grey.png", new BMap.Size(20,20)));
+	pipe_icons.push(new BMap.Icon("images/pipe_orange.png", new BMap.Size(20,20)));
+	pipe_icons.push(new BMap.Icon("images/pipe_red.png", new BMap.Size(20,20)));
 
 	var box_icons = [];
 	box_icons.push(new BMap.Icon("images/box_green.png", new BMap.Size(20,20)));
-	box_icons.push(new BMap.Icon("images/box_red.png", new BMap.Size(20,20)));
-	box_icons.push(new BMap.Icon("images/box_orange.png", new BMap.Size(20,20)));
 	box_icons.push(new BMap.Icon("images/box_grey.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/box_orange.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/box_red.png", new BMap.Size(20,20)));
+	box_icons.push(new BMap.Icon("images/pipe_red.png", new BMap.Size(20,20)));
 
 	var circles = [];
 	var p1 = new BMap.Point(114.0469272065,22.5191553878);
@@ -102,6 +104,123 @@
 		// 	return url;
 		// }
 
+		var polylines = [];
+	var linePoints = [
+		new BMap.Point(114.055009,22.525749),
+		new BMap.Point(114.054973,22.525682),
+		new BMap.Point(114.054901,22.525582),
+		new BMap.Point(114.054865,22.525515),
+		new BMap.Point(114.054793,22.525449),
+		new BMap.Point(114.054757,22.525315),
+		new BMap.Point(114.054686,22.525248),
+		new BMap.Point(114.054614,22.525148),
+		new BMap.Point(114.054578,22.525081),
+		new BMap.Point(114.054506,22.524948),
+		new BMap.Point(114.054398,22.524848),
+		new BMap.Point(114.05429,22.524714),
+		new BMap.Point(114.054254,22.524614),
+		new BMap.Point(114.054183,22.52448),
+		new BMap.Point(114.054183,22.52438),
+		new BMap.Point(114.054147,22.524314),
+		new BMap.Point(114.054147,22.52418),
+		new BMap.Point(114.054039,22.52408),
+		new BMap.Point(114.053967,22.52398),
+		new BMap.Point(114.053895,22.52388),
+		new BMap.Point(114.053823,22.523779),
+		new BMap.Point(114.053751,22.523713),
+		new BMap.Point(114.053679,22.523579),
+		new BMap.Point(114.053608,22.523479),
+		new BMap.Point(114.053536,22.523345),
+		new BMap.Point(114.053464,22.523245),
+		new BMap.Point(114.053392,22.523112),
+		new BMap.Point(114.05332,22.523045),
+		new BMap.Point(114.053248,22.522911),
+		new BMap.Point(114.053212,22.522778),
+		new BMap.Point(114.053105,22.522678),
+		new BMap.Point(114.053033,22.522511),
+		new BMap.Point(114.052925,22.522411),
+		new BMap.Point(114.052853,22.522277),
+		new BMap.Point(114.052781,22.52211),
+		new BMap.Point(114.052673,22.522043),
+		new BMap.Point(114.052601,22.52191),
+		new BMap.Point(114.052566,22.52181),
+		new BMap.Point(114.052458,22.521643),
+		new BMap.Point(114.052422,22.521576),
+		new BMap.Point(114.05235,22.521509),
+		new BMap.Point(114.052314,22.521409),
+		new BMap.Point(114.05217,22.521242),
+		new BMap.Point(114.052134,22.521175),
+		new BMap.Point(114.052134,22.521175),
+		new BMap.Point(114.052027,22.521008),
+		new BMap.Point(114.051991,22.520908),
+		new BMap.Point(114.051883,22.520808),
+		new BMap.Point(114.051847,22.520675),
+		new BMap.Point(114.051739,22.520574),
+		new BMap.Point(114.051667,22.520441),
+		new BMap.Point(114.051631,22.520274),
+		new BMap.Point(114.051559,22.520174),
+		new BMap.Point(114.051559,22.520007),
+		new BMap.Point(114.051524,22.519873),
+		new BMap.Point(114.051488,22.51974),
+		new BMap.Point(114.051452,22.519473),
+		new BMap.Point(114.05138,22.519306),
+		new BMap.Point(114.051308,22.519172),
+		new BMap.Point(114.051236,22.519039),
+		new BMap.Point(114.051128,22.518838),
+		new BMap.Point(114.051056,22.518705),
+		new BMap.Point(114.050949,22.518538),
+		new BMap.Point(114.050841,22.518371),
+		new BMap.Point(114.050733,22.518238),
+		new BMap.Point(114.050625,22.518071),
+		new BMap.Point(114.050517,22.517937),
+		new BMap.Point(114.050446,22.517803),
+		new BMap.Point(114.050302,22.517637),
+		new BMap.Point(114.050194,22.51747),
+		new BMap.Point(114.05005,22.517269),
+		new BMap.Point(114.049943,22.517036),
+		new BMap.Point(114.049835,22.516869),
+		new BMap.Point(114.049727,22.516635),
+		new BMap.Point(114.049583,22.516368),
+		new BMap.Point(114.049439,22.516201),
+		new BMap.Point(114.049296,22.515967),
+		new BMap.Point(114.049152,22.515767),
+		new BMap.Point(114.04908,22.5155),
+		new BMap.Point(114.048972,22.515266),
+		new BMap.Point(114.048865,22.515099),
+		new BMap.Point(114.048757,22.514966),
+		new BMap.Point(114.048685,22.514866),
+		new BMap.Point(114.048541,22.514699),
+		new BMap.Point(114.048397,22.514465),
+		new BMap.Point(114.048254,22.514298),
+		new BMap.Point(114.048146,22.514031),
+		new BMap.Point(114.048038,22.513831),
+		new BMap.Point(114.047894,22.513664),
+		new BMap.Point(114.047787,22.513497),
+		new BMap.Point(114.047679,22.51333),
+		new BMap.Point(114.047571,22.513196),
+		new BMap.Point(114.047463,22.512996),
+		new BMap.Point(114.047355,22.512796),
+		new BMap.Point(114.047176,22.512695),
+		new BMap.Point(114.047068,22.512428),
+		new BMap.Point(114.046924,22.512195),
+		new BMap.Point(114.04678,22.511961),
+		new BMap.Point(114.046529,22.511727),
+		new BMap.Point(114.046385,22.511493),
+		new BMap.Point(114.046206,22.511326),
+		new BMap.Point(114.046062,22.511093),
+		new BMap.Point(114.045882,22.510926),
+		new BMap.Point(114.045738,22.510592),
+		new BMap.Point(114.045595,22.510358),
+		new BMap.Point(114.045451,22.510258),
+		new BMap.Point(114.045271,22.510024),
+		new BMap.Point(114.04502,22.509791),
+		new BMap.Point(114.04502,22.509791),
+		new BMap.Point(114.04502,22.509791),
+		new BMap.Point(114.04502,22.509791)
+	];
+
+	var plOpts = [];
+
 	var pipe_points = [
 		new BMap.Point(114.0488154816,22.5155873085),
 		new BMap.Point(114.0512831139,22.5196311248),
@@ -113,12 +232,19 @@
 	];
 
 	var box_points = [
-		new BMap.Point(114.0456492019, 22.5101174748),
-		new BMap.Point(114.0504033494, 22.5176488767),
-		new BMap.Point(114.0512616563, 22.5190760982),
-		new BMap.Point(114.0518123050, 22.5204743795),
-		new BMap.Point(114.0550702783, 22.5255914087),
-		new BMap.Point(114.0559715006,22.5276131832)];
+		linePoints[9],
+		linePoints[23],
+		linePoints[42],
+		linePoints[57],
+		linePoints[72],
+		linePoints[84],
+		linePoints[99]
+	];
+
+	var box_hash = {}
+	box_points.forEach(function (point) {
+		box_hash[[point.lng, point.lat]] = 0;
+	})
 
 	var polyline = new BMap.Polyline(box_points, {strokeColor:"blue", strokeWeight:15, strokeOpacity:0});
 
@@ -190,10 +316,12 @@
 			map.addOverlay(markerR);
 		})
 	}
+
 	function addBoxes(){
 		// 随机向地图添加标注
 		box_points.forEach(function (point) {
 			var idx = parseInt(Math.random() * 4);
+			box_hash[[point.lng, point.lat]] = idx + 1;
 			var markerR = new BMap.Marker(point,{icon:box_icons[idx]});
 			map.addOverlay(markerR);
 		})
@@ -231,6 +359,19 @@
 	}
 
 	function addFlow() {
+		plOpts = [];
+		var idx = 0;
+		var color = "black";
+		for (var a = 0; a < linePoints.length; a ++) {
+			var point = linePoints[a];
+			if (box_hash[[point.lng,point.lat]]) { idx = box_hash[[point.lng,point.lat]]; }
+			if (idx == 0) { color = "black"}
+			if (idx == 1) { color = "green"}
+			if (idx == 2) { color = "grey"}
+			if (idx == 3) { color = "orange"}
+			if (idx == 4) { color = "red"}
+			plOpts.push({strokeColor:color, strokeWeight:3 + a * 2 / map.Va, strokeOpacity:"0.4"});
+		}
 		addPolylines();
 		adynamicLines();
 	}
@@ -238,18 +379,18 @@
 	function getCirclePoints(lng, lat, raidus) {
 		var circlePoints = [];
 		var degree = (24901 * 1609) / 360.0;
-    var dpmLat = 1 / degree;
+    	var dpmLat = 1 / degree;
 		var mpdLng = degree * Math.cos(lat * (Math.PI / 180));
-    var dpmLng = 1 / mpdLng;
+		var dpmLng = 1 / mpdLng;
 
-    var radiusLat = dpmLat * raidus;
-    var minLat = lat - radiusLat;
-    var maxLat = lat + radiusLat;
+		var radiusLat = dpmLat * raidus;
+		var minLat = lat - radiusLat;
+		var maxLat = lat + radiusLat;
 
-    var radiusLng = dpmLng * raidus;
-    var minLng = lng - radiusLng;
-    var maxLng = lng + radiusLng;
-		for (var a = 120; a <= 120 + 360; a += 1) {
+		var radiusLng = dpmLng * raidus;
+		var minLng = lng - radiusLng;
+		var maxLng = lng + radiusLng;
+		for (var a = 270; a <= 270 + 360; a += 10) {
 			var cos = Math.cos(a / 180 * Math.PI);
 			var sin = Math.sin(a / 180 * Math.PI);
 			// if (a == 0) { sin = 0; cos = 1;}
@@ -282,13 +423,15 @@
 	function addOver() {
 		var points = getCirclePoints(114.049667, 22.516488, 500);
 		var ps = []
-		ps.push(new BMap.Point(114.005048,22.500917))
-		ps.push(new BMap.Point(114.087046,22.500917))
-		ps.push(new BMap.Point(114.087046,22.537174))
-		ps.push(new BMap.Point(114.005048,22.537174))
-		ps.push(new BMap.Point(114.005048,22.500917))
+		var ne = new BMap.Point(113.834155, 22.413675);
+		var sw = new BMap.Point(114.274827, 22.616664);
+		ps.push(new BMap.Point(ne.lng,ne.lat))
+		ps.push(new BMap.Point(sw.lng,ne.lat))
+		ps.push(new BMap.Point(sw.lng,sw.lat))
+		ps.push(new BMap.Point(ne.lng,sw.lat))
+		ps.push(new BMap.Point(ne.lng,ne.lat))
 		ps = ps.concat(points)
-		ps.push(new BMap.Point(114.005048,22.500917))
+		ps.push(new BMap.Point(ne.lng,ne.lat))
 
 		// var ps = [];
 		// var lnglats = [];
@@ -308,74 +451,14 @@
 		map.addOverlay(curve);
 	}
 
-	var polylines = [];
-	var linePoints = [
-		new BMap.Point(114.045463,22.510211),
-		new BMap.Point(114.045714,22.510645),
-		new BMap.Point(114.046109,22.511113),
-		new BMap.Point(114.046433,22.511547),
-		new BMap.Point(114.04672,22.512048),
-		new BMap.Point(114.046972,22.512415),
-		new BMap.Point(114.047187,22.512682),
-		new BMap.Point(114.047367,22.513016),
-		new BMap.Point(114.047942,22.513884),
-		new BMap.Point(114.048194,22.514318),
-		new BMap.Point(114.048481,22.514719),
-		new BMap.Point(114.048697,22.515019),
-		new BMap.Point(114.048876,22.515253),
-		new BMap.Point(114.048984,22.51552),
-		new BMap.Point(114.049236,22.515887),
-		new BMap.Point(114.049487,22.516188),
-		new BMap.Point(114.049667,22.516488),
-		new BMap.Point(114.04981,22.516722),
-		new BMap.Point(114.049918,22.517022),
-		new BMap.Point(114.050206,22.517323),
-		new BMap.Point(114.050349,22.517623),
-		new BMap.Point(114.050457,22.517824),
-		new BMap.Point(114.050745,22.518157),
-		new BMap.Point(114.050817,22.518458),
-		new BMap.Point(114.051104,22.518758),
-		new BMap.Point(114.051212,22.519092),
-		new BMap.Point(114.051427,22.51986),
-		new BMap.Point(114.051535,22.520261),
-		new BMap.Point(114.051715,22.520561),
-		new BMap.Point(114.051895,22.520862),
-		new BMap.Point(114.052038,22.521095),
-		new BMap.Point(114.052146,22.521296),
-		new BMap.Point(114.052398,22.521529),
-		new BMap.Point(114.052541,22.521796),
-		new BMap.Point(114.052649,22.522063),
-		new BMap.Point(114.052793,22.522264),
-		new BMap.Point(114.052972,22.522564),
-		new BMap.Point(114.053368,22.523165),
-		new BMap.Point(114.053691,22.523666),
-		new BMap.Point(114.053799,22.523866),
-		new BMap.Point(114.053979,22.524133),
-		new BMap.Point(114.05405,22.524267),
-		new BMap.Point(114.054086,22.524534),
-		new BMap.Point(114.054266,22.524768),
-		new BMap.Point(114.054482,22.524968),
-		new BMap.Point(114.054733,22.525335),
-		new BMap.Point(114.054805,22.525502),
-		new BMap.Point(114.054949,22.525769),
-		new BMap.Point(114.054985,22.525869),
-		new BMap.Point(114.054985,22.525869),
-		new BMap.Point(114.054985,22.525869)
-	];
-
-	var plOpts = [];
-	for (var a=0; a < 51; a ++) {
-		plOpts.push({strokeColor:"#00f",strokeWeight:2 + (60 - a) / 5,strokeOpacity:"0.4"});
-	}
-
 	function addPolylines(){
-    for(var i = 0; i < linePoints.length - 2; i++){
-      var polyline = new BMap.Polyline([linePoints[i],linePoints[i+1]],plOpts[i]);
+		for(var i = 0; i < linePoints.length - 2; i++){
+			var polyline = new BMap.Polyline([linePoints[i],linePoints[i+1]],plOpts[i]);
 			map.addOverlay(polyline);   //增加折线
 			// polyline.hide();
-      polylines.push(polyline);
-    }
-  }
+			polylines.push(polyline);
+		}
+	}
 
 	//数据准备,
 	var apoints = [
@@ -477,8 +560,8 @@
 		for (var i = 0; i < polylines.length / 3 - 1; i++) {
 			polylines[i * 3 + offset].show();
 		}
-		offset -= 1;
-		if (offset == -1) {offset = 2;}
+		offset += 1;
+		if (offset == 3) {offset = 0;}
     setTimeout(adynamicLines, 500);
 	}
 
