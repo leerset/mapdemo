@@ -36,8 +36,8 @@
     }
 	</style>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link type="text/css" href="styles.css" rel="Stylesheet">
-	<link href="data/styles.css" type="text/css" rel="stylesheet">
+	<!-- <link type="text/css" href="styles.css" rel="Stylesheet">
+	<link href="data/styles.css" type="text/css" rel="stylesheet"> -->
 	<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=6YEOGgEs5NGQHvg36wFHyMsj5E07xnTU&s=1"></script>
 	<title>DEMO</title>
 </head>
@@ -141,6 +141,9 @@
 	boxIcons.push(new BMap.Icon("images/box_red.png", new BMap.Size(20,20)));
 
 	var points = [];	// 水滴图标
+
+	var ne = new BMap.Point(113.834155, 22.413675);
+	var sw = new BMap.Point(114.274827, 22.616664);
 
 	// 区域圆心
 	var areaO1 = new BMap.Point(114.0469272065,22.5191553878);
@@ -288,53 +291,53 @@
 
 	var pipeAreaPoints = [
 			[
-				 new BMap.Point(114.04787,22.518491),
-				 new BMap.Point(114.049379,22.517456),
-				 new BMap.Point(114.049739,22.518124),
-				 new BMap.Point(114.048158,22.519025),
-				 new BMap.Point(114.04787,22.518491)
+				new BMap.Point(114.04787,22.518491),
+				new BMap.Point(114.049379,22.517456),
+				new BMap.Point(114.049739,22.518124),
+				new BMap.Point(114.048158,22.519025),
+				new BMap.Point(114.04787,22.518491)
 	 	 	],
 		 	[
-				 new BMap.Point(114.049271,22.52193),
-				 new BMap.Point(114.051104,22.520928),
-				 new BMap.Point(114.051535,22.521563),
-				 new BMap.Point(114.049775,22.522497),
-				 new BMap.Point(114.049271,22.52193)
+				new BMap.Point(114.049271,22.52193),
+				new BMap.Point(114.051104,22.520928),
+				new BMap.Point(114.051535,22.521563),
+				new BMap.Point(114.049775,22.522497),
+				new BMap.Point(114.049271,22.52193)
 		 	],
 			[
- 				 new BMap.Point(114.05229,22.526871),
-				 new BMap.Point(114.054374,22.525569),
-				 new BMap.Point(114.054697,22.526003),
-				 new BMap.Point(114.052541,22.527238),
-				 new BMap.Point(114.05229,22.526871)
+				new BMap.Point(114.05229,22.526871),
+				new BMap.Point(114.054374,22.525569),
+				new BMap.Point(114.054697,22.526003),
+				new BMap.Point(114.052541,22.527238),
+				new BMap.Point(114.05229,22.526871)
 		 	],
-		  [
-				 new BMap.Point(114.050601,22.517056),
-				 new BMap.Point(114.05017,22.516154),
-				 new BMap.Point(114.051427,22.51582),
-				 new BMap.Point(114.051715,22.516588),
-				 new BMap.Point(114.050601,22.517056),
+		  	[
+				new BMap.Point(114.050601,22.517056),
+				new BMap.Point(114.05017,22.516154),
+				new BMap.Point(114.051427,22.51582),
+				new BMap.Point(114.051715,22.516588),
+				new BMap.Point(114.050601,22.517056),
 		 	],
 			[
 				new BMap.Point(114.05441,22.523866),
-				 new BMap.Point(114.055128,22.523365),
-				 new BMap.Point(114.054877,22.522998),
-				 new BMap.Point(114.05405,22.523399),
-				 new BMap.Point(114.05441,22.523866)
+				new BMap.Point(114.055128,22.523365),
+				new BMap.Point(114.054877,22.522998),
+				new BMap.Point(114.05405,22.523399),
+				new BMap.Point(114.05441,22.523866)
 		 	],
 			[
-					new BMap.Point(114.055272,22.525802),
-          new BMap.Point(114.056135,22.525836),
-          new BMap.Point(114.056242,22.525335),
-          new BMap.Point(114.0552,22.525335),
-          new BMap.Point(114.055272,22.525802)
-		 	],
+				new BMap.Point(114.055272,22.525802),
+				new BMap.Point(114.056135,22.525836),
+				new BMap.Point(114.056242,22.525335),
+				new BMap.Point(114.0552,22.525335),
+				new BMap.Point(114.055272,22.525802)
+			],
 			[
-				 new BMap.Point(114.055596,22.527672),
-				 new BMap.Point(114.056027,22.527505),
-				 new BMap.Point(114.055308,22.525903),
-				 new BMap.Point(114.054805,22.52607),
-				 new BMap.Point(114.055596,22.527672)
+				new BMap.Point(114.055596,22.527672),
+				new BMap.Point(114.056027,22.527505),
+				new BMap.Point(114.055308,22.525903),
+				new BMap.Point(114.054805,22.52607),
+				new BMap.Point(114.055596,22.527672)
 		 	],
 	];
 
@@ -408,7 +411,7 @@
           new BMap.Point(114.051562,22.521291),
           new BMap.Point(114.051832,22.52115),
           new BMap.Point(114.052065,22.521033)],
-					[new BMap.Point(114.05198,22.527296),
+		[new BMap.Point(114.05198,22.527296),
           new BMap.Point(114.052285,22.527129),
           new BMap.Point(114.052654,22.526854),
           new BMap.Point(114.053004,22.526712),
@@ -450,6 +453,21 @@
           new BMap.Point(114.054953,22.525736)],
 
 	]
+
+	var riverOriginPoints = [
+		new BMap.Point(114.054989,22.525769),
+		new BMap.Point(114.054774,22.525298),
+		new BMap.Point(114.054145,22.524488),
+		new BMap.Point(114.054095,22.524221),
+		new BMap.Point(114.051733,22.520586),
+		new BMap.Point(114.051535,22.520127),
+		new BMap.Point(114.051329,22.519284),
+		new BMap.Point(114.048795,22.515128),
+		new BMap.Point(114.045391,22.510145)
+	];
+
+	var riverExtendPoints = extendPoints(riverOriginPoints);
+	var riverCoverPoints = coverPoints(riverExtendPoints);
 
 	var boxPoints = [
 		linePoints[9],
@@ -597,7 +615,7 @@
 			ps.push(new BMap.Point(ne.lng,ne.lat))
 			ps = ps.concat(circlePoints)
 			ps.push(new BMap.Point(ne.lng,ne.lat))
-			ps = ps.concat(rivierAreaPoints)
+			ps = ps.concat(riverCoverPoints)
 			ps.push(new BMap.Point(ne.lng,ne.lat))
 			ps = ps.concat(pipeAreaPoints[i])
 			ps.push(new BMap.Point(ne.lng,ne.lat))
@@ -705,6 +723,29 @@
 		return sidePoints;
 	}
 
+	function getSidePoints2(point1, point2, raidus = 100) {
+		let sidePoints = [];
+		let degree = (24901 * 1609) / 360.0;
+		let dpmLat = 1 / degree;
+		let mpdLng = degree * Math.cos(point1.lat * (Math.PI / 180));
+		let dpmLng = 1 / mpdLng;
+		let radiusLat = dpmLat * raidus;
+		let radiusLng = dpmLng * raidus;
+		let cos = (point1.lng - point2.lng) / radiusLng;
+		let sin = (point1.lat - point2.lat) / radiusLat;
+		let a = Math.atan(sin / cos);
+		let b = (a * 180 / Math.PI + 90) * Math.PI / 180;
+		let minLng = point1.lng;
+		let minLat = point1.lat;
+		let ln1 = parseFloat((minLng + 1 * radiusLng * Math.cos(b) + 1 * radiusLng * Math.cos(a) * cos / Math.abs(cos)).toFixed(6))
+		let la1 = parseFloat((minLat + 1 * radiusLat * Math.sin(b) + 1 * radiusLat * Math.sin(a) * cos / Math.abs(cos)).toFixed(6))
+		sidePoints.push(new BMap.Point(ln1, la1));
+		let ln2 = parseFloat((minLng - 1 * radiusLng * Math.cos(b) + 1 * radiusLng * Math.cos(a) * cos / Math.abs(cos)).toFixed(6))
+		let la2 = parseFloat((minLat - 1 * radiusLat * Math.sin(b) + 1 * radiusLat * Math.sin(a) * cos / Math.abs(cos)).toFixed(6))
+		sidePoints.push(new BMap.Point(ln2, la2));
+		return sidePoints;
+	}
+
 	function extendPoints(pointArray, offset = 50) {
 		let retPoints = [];
 		for (let i = 0; i < pointArray.length; i++ ) {
@@ -719,15 +760,15 @@
 		return retPoints;
 	}
 
-	function coverPoints(pointArray, radius = 100) {
+	function offsetPoints(pointArray, radius = 100) {
 		if (pointArray.length <= 1) { return pointArray}
 		let retPoints = [];
 		for (let i = 0; i < pointArray.length; i++ ) {
 			p = pointArray[i];
 			if ( i == 0 ) {
-				retPoints.push(getSidePoints(p,pointArray[1],p,radius));
+				retPoints.push(getSidePoints2(p,pointArray[1],radius));
 			} else if (i == pointArray.length - 1) {
-				retPoints.push(getSidePoints(p,pointArray[i-1],p,radius));
+				retPoints.push(getSidePoints2(p,pointArray[i-1],radius));
 			} else {
 				retPoints.push(getSidePoints(p,pointArray[i-1],pointArray[i+1],radius));
 			}
@@ -735,19 +776,66 @@
 		return retPoints;
 	}
 
-a = boxPoints
-b = coverPoints(a,100)
-riverCoverPoints = []
-for (let i = 0; i < b.length; i++ ) {
-	riverCoverPoints.push(b[i][0])
-}
-for (let i = b.length - 1; i >= 0; i-- ) {
-	riverCoverPoints.push(b[i][1])
-}
-riverCoverPoints.push(b[0][0])
-polyline = new BMap.Polyline(riverCoverPoints, {strokeColor:"#78cdd1", strokeWeight:15, strokeOpacity:0});
-map.addOverlay(polyline);
-addMarker(boxPoints);
+	function coverPoints(pointArray) {
+		if (pointArray.length <= 1) { return pointArray}
+		let retPoints = [];
+		let offsets = offsetPoints(pointArray);
+		for (let i = 0; i < offsets.length; i++ ) {
+			retPoints.push(offsets[i][0])
+		}
+		for (let i = offsets.length - 1; i >= 0; i-- ) {
+			retPoints.push(offsets[i][1])
+		}
+		retPoints.push(offsets[0][0]);
+		return retPoints;
+	}
+
+	function addPolyline(pointArray) {
+		let polyline = new BMap.Polyline(pointArray, {strokeColor:"#78cdd1", strokeWeight:5, strokeOpacity:0});
+		map.addOverlay(polyline);
+	}
+
+	function getArcPoints(point, raidus, deg1, deg2, offset = 10) {
+		let lng = point.lng;
+		let lat = point.lat;
+		let arcPoints = [];
+		let degree = (24901 * 1609) / 360.0;
+    	let dpmLat = 1 / degree;
+		let mpdLng = degree * Math.cos(lat * (Math.PI / 180));
+		let dpmLng = 1 / mpdLng;
+
+		let radiusLat = dpmLat * raidus;
+		let minLat = lat - radiusLat;
+		let maxLat = lat + radiusLat;
+
+		let radiusLng = dpmLng * raidus;
+		let minLng = lng - radiusLng;
+		let maxLng = lng + radiusLng;
+		for (let a = deg1; a <= deg2; a += offset) {
+			let cos = Math.cos(a / 180 * Math.PI);
+			let sin = Math.sin(a / 180 * Math.PI);
+			let ln = parseFloat((lng + radiusLng * cos).toFixed(6))
+			let la = parseFloat((lat + radiusLat * sin).toFixed(6))
+			if ( arcPoints.length > 0 &&
+				   la == arcPoints[arcPoints.length - 1].lat) {
+				la += 0.000001;
+			}
+			if ( arcPoints.length > 0 &&
+				   ln == arcPoints[arcPoints.length - 1].lng) {
+				ln += 0.000001;
+			}
+			arcPoints.push(new BMap.Point(ln, la))
+		}
+		// for (var a = 121; a <= 240; a += 60) {
+		// 	arcPoints.push(new BMap.Point(lng + radiusLng * Math.cos(a / 180 * Math.PI), lat + radiusLat * Math.sin(a / 180 * Math.PI)))
+		// }
+		return arcPoints;
+	}
+
+
+// polyline = new BMap.Polyline(riverCoverPoints, {strokeColor:"#78cdd1", strokeWeight:1, strokeOpacity:0});
+// map.addOverlay(polyline);
+// addMarker(boxPoints);
 
 	function addFlow() {
 		plOpts = [];
@@ -769,34 +857,27 @@ addMarker(boxPoints);
 		adynamicLines();
 	}
 
-	function getCirclePoints(lng, lat, raidus) {
-		var circlePoints = [];
-		var degree = (24901 * 1609) / 360.0;
-    var dpmLat = 1 / degree;
-		var mpdLng = degree * Math.cos(lat * (Math.PI / 180));
-		var dpmLng = 1 / mpdLng;
+	function getCirclePoints(point, raidus) {
+		let lng = point.lng;
+		let lat = point.lat;
+		let circlePoints = [];
+		let degree = (24901 * 1609) / 360.0;
+    	let dpmLat = 1 / degree;
+		let mpdLng = degree * Math.cos(lat * (Math.PI / 180));
+		let dpmLng = 1 / mpdLng;
 
-		var radiusLat = dpmLat * raidus;
-		var minLat = lat - radiusLat;
-		var maxLat = lat + radiusLat;
+		let radiusLat = dpmLat * raidus;
+		let minLat = lat - radiusLat;
+		let maxLat = lat + radiusLat;
 
-		var radiusLng = dpmLng * raidus;
-		var minLng = lng - radiusLng;
-		var maxLng = lng + radiusLng;
-		for (var a = 270; a <= 270 + 360; a += 10) {
-			var cos = Math.cos(a / 180 * Math.PI);
-			var sin = Math.sin(a / 180 * Math.PI);
-			// if (a == 0) { sin = 0; cos = 1;}
-			// if (a == 90) { sin = 1; cos = 0;}
-			// if (a == 180) { sin = 0; cos = -1;}
-			// if (a == 270) { sin = -1; cos = 0;}
-			// if (a == 360) { sin = 0; cos = 1;}
-			// if (a == 30) { sin = 0.5;}
-			// if (a == 210) { sin = -0.5;}
-			// if (a == 60) { cos = 0.5;}
-			// if (a == 240) { cos = -0.5;}
-			var ln = parseFloat((lng + radiusLng * cos).toFixed(6))
-			var la = parseFloat((lat + radiusLat * sin).toFixed(6))
+		let radiusLng = dpmLng * raidus;
+		let minLng = lng - radiusLng;
+		let maxLng = lng + radiusLng;
+		for (let a = 270; a <= 270 + 360; a += 10) {
+			let cos = Math.cos(a / 180 * Math.PI);
+			let sin = Math.sin(a / 180 * Math.PI);
+			let ln = parseFloat((lng + radiusLng * cos).toFixed(6))
+			let la = parseFloat((lat + radiusLat * sin).toFixed(6))
 			if ( circlePoints.length > 0 &&
 				   la == circlePoints[circlePoints.length - 1].lat) {
 				la += 0.000001;
@@ -814,10 +895,9 @@ addMarker(boxPoints);
 	}
 
 	function addOver() {
-		var points = getCirclePoints(114.049667, 22.516488, 500);
+		var points = getCirclePoints(new BMap.Point(114.049667, 22.516488), 500);
 		var ps = []
-		var ne = new BMap.Point(113.834155, 22.413675);
-		var sw = new BMap.Point(114.274827, 22.616664);
+
 		ps.push(new BMap.Point(ne.lng,ne.lat))
 		ps.push(new BMap.Point(sw.lng,ne.lat))
 		ps.push(new BMap.Point(sw.lng,sw.lat))
@@ -884,5 +964,7 @@ addMarker(boxPoints);
 				map.removeOverlay(polylines[i]);
 		}
 	}
-
+	
+	// addPolyline(riverCoverPoints);
+	
 </script>
