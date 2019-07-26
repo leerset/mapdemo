@@ -623,6 +623,132 @@
 
 	var flow = false;
 
+	function getDistance2(point1, point2) {
+		return getDistance(point1.lat, point1.lng, point2.lat, point2.lng);
+	}
+
+	function getDistance(lat1, lng1, lat2, lng2) {
+	 earthRadius = 6367000; //地球半径m
+
+	 lat1 = (lat1 * Math.PI ) / 180;
+	 lng1 = (lng1 * Math.PI ) / 180;
+
+	 lat2 = (lat2 * Math.PI ) / 180;
+	 lng2 = (lng2 * Math.PI ) / 180;
+
+	 calcLongitude = lng2 - lng1;
+	 calcLatitude = lat2 - lat1;
+	 stepOne = Math.pow(Math.sin(calcLatitude / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(calcLongitude / 2), 2);
+	 stepTwo = 2 * Math.asin(Math.min(1, Math.sqrt(stepOne)));
+	 calculatedDistance = earthRadius * stepTwo;
+
+	 return Math.round(calculatedDistance, 6);
+	}
+
+	function splitPoints(point1, point2, offset = 50) {
+		let points = [];
+		// points.push(point1);
+		let dist = getDistance2(point1, point2);
+		let pieces = Math.round(dist / offset);
+		if (pieces <= 1) {
+			// points.push(point2);
+			return points;
+		} else {
+			let raidus = Math.round(dist / pieces);
+			let degree = (24901 * 1609) / 360.0;
+			let dpmLat = 1 / degree;
+			let mpdLng = degree * Math.cos(point1.lat * (Math.PI / 180));
+			let dpmLng = 1 / mpdLng;
+			let radiusLat = dpmLat * raidus;
+			let radiusLng = dpmLng * raidus;
+			let cos = (point2.lng - point1.lng) / radiusLng;
+			let sin = (point2.lat - point1.lat) / radiusLat;
+			let a = Math.atan(sin / cos);
+			console.log("sin=" + sin);
+			console.log("cos=" + cos);
+			console.log("a=" + a);
+			// let minLng = Math.min(point1.lng, point2.lng);
+			// let minLat = Math.min(point1.lat, point2.lat);
+			let minLng = point1.lng;
+			let minLat = point1.lat;
+			for ( let i = 1; i < pieces; i++ ) {
+				let ln = parseFloat((minLng + i * radiusLng * Math.cos(a) * cos / Math.abs(cos)).toFixed(6))
+				let la = parseFloat((minLat + i * radiusLat * Math.sin(a) * sin / Math.abs(sin)).toFixed(6))
+				let newPoint = new BMap.Point(ln, la)
+				points.push(newPoint);
+			}
+			// points.push(point2);
+			return points;
+		}
+	}
+
+	function getSidePoints(point1, point2, point3, raidus = 100) {
+		let sidePoints = [];
+		let degree = (24901 * 1609) / 360.0;
+		let dpmLat = 1 / degree;
+		let mpdLng = degree * Math.cos(point1.lat * (Math.PI / 180));
+		let dpmLng = 1 / mpdLng;
+		let radiusLat = dpmLat * raidus;
+		let radiusLng = dpmLng * raidus;
+		let cos = (point2.lng - point3.lng) / radiusLng;
+		let sin = (point2.lat - point3.lat) / radiusLat;
+		let a = Math.atan(sin / cos);
+		let b = (a * 180 / Math.PI + 90) * Math.PI / 180;
+		let minLng = point1.lng;
+		let minLat = point1.lat;
+		let ln1 = parseFloat((minLng + 1 * radiusLng * Math.cos(b)).toFixed(6))
+		let la1 = parseFloat((minLat + 1 * radiusLat * Math.sin(b)).toFixed(6))
+		sidePoints.push(new BMap.Point(ln1, la1));
+		let ln2 = parseFloat((minLng - 1 * radiusLng * Math.cos(b)).toFixed(6))
+		let la2 = parseFloat((minLat - 1 * radiusLat * Math.sin(b)).toFixed(6))
+		sidePoints.push(new BMap.Point(ln2, la2));
+		return sidePoints;
+	}
+
+	function extendPoints(pointArray, offset = 50) {
+		let retPoints = [];
+		for (let i = 0; i < pointArray.length; i++ ) {
+			p = pointArray[i];
+			if ( i == 0 ) {
+				retPoints.push(p);
+			} else {
+				retPoints = retPoints.concat(splitPoints(pointArray[i-1], p, offset));
+				retPoints.push(p);
+			}
+		}
+		return retPoints;
+	}
+
+	function coverPoints(pointArray, radius = 100) {
+		if (pointArray.length <= 1) { return pointArray}
+		let retPoints = [];
+		for (let i = 0; i < pointArray.length; i++ ) {
+			p = pointArray[i];
+			if ( i == 0 ) {
+				retPoints.push(getSidePoints(p,pointArray[1],p,radius));
+			} else if (i == pointArray.length - 1) {
+				retPoints.push(getSidePoints(p,pointArray[i-1],p,radius));
+			} else {
+				retPoints.push(getSidePoints(p,pointArray[i-1],pointArray[i+1],radius));
+			}
+		}
+		return retPoints;
+	}
+
+a = boxPoints
+b = coverPoints(a,100)
+riverCoverPoints = []
+for (let i = 0; i < b.length; i++ ) {
+	riverCoverPoints.push(b[i][0])
+}
+for (let i = b.length - 1; i >= 0; i-- ) {
+	riverCoverPoints.push(b[i][1])
+}
+riverCoverPoints.push(b[0][0])
+polyline = new BMap.Polyline(riverCoverPoints, {strokeColor:"#78cdd1", strokeWeight:15, strokeOpacity:0});
+map.addOverlay(polyline);
+addMarker(boxPoints);
+
 	function addFlow() {
 		plOpts = [];
 		var idx = 0;
@@ -646,7 +772,7 @@
 	function getCirclePoints(lng, lat, raidus) {
 		var circlePoints = [];
 		var degree = (24901 * 1609) / 360.0;
-    	var dpmLat = 1 / degree;
+    var dpmLat = 1 / degree;
 		var mpdLng = degree * Math.cos(lat * (Math.PI / 180));
 		var dpmLng = 1 / mpdLng;
 
