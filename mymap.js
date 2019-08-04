@@ -4,11 +4,14 @@
 function initMap(){
   createMap();//创建地图
   setMapEvent();//设置地图事件
-  // map.enableScrollWheelZoom();    	//启用滚轮放大缩小，默认禁用
+  map.enableScrollWheelZoom();    	//启用滚轮放大缩小，默认禁用
   // map.disableDragging();           		//禁用地图拖拽，默认启用
   // map.enableKeyboard();         		//启用键盘操作，默认禁用。
-  map.disableDoubleClickZoom();      	//禁用双击放大，默认启用
+  // map.disableDoubleClickZoom();      	//禁用双击放大，默认启用
   // BMap.setCustomMapStylePath("custom_map_config.json");
+  map.setMapStyleV2({
+    styleId: '1b9f6fb1ffd9d67534d4c10692f9e0ea'
+  });
 }
 
 function createMap(){
